@@ -1,3 +1,4 @@
+{% load extras %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +75,7 @@
                             {% for con in countryNames %}
                         <tr >
                             <td style="padding-bottom: 5px;">
-                                <button type="submit" class="btn btn-secondary btn-sm" style="width: 160px">{{ con }}</button>
+                                <button type="submit" class="btn btn-secondary btn-sm" style="width: 160px">{{ con | joinAll }}</button>
                             </td>
 
                         </tr>
