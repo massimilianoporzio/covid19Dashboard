@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf.urls import url
 
-from firstUI.views import indexPage
+from firstUI.views import indexPage,drillDownACountry
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('^$',indexPage, name='index'), # qualunque altro indirizzo vien mandato a index
+    url('selectCountry',drillDownACountry,name='drillDown'),
 ]

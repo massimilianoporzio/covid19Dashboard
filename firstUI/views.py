@@ -1,11 +1,18 @@
 from django.shortcuts import render
+from django.conf import settings
 import requests
 import os
 import pandas as pd
 import json
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 # Create your views here.
+@cache_page(CACHE_TTL)
 def indexPage(request):
+
     dataItalia = pd.read_csv('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv')
     dataRegioni = pd.read_csv(
         'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv')
@@ -71,3 +78,9 @@ def indexPage(request):
     }
 
     return render(request, 'index.html', context=context)
+
+
+def drillDownACountry(request):
+    print (request.POST.dict())
+    context = {}
+    return render(request, 'index2.html', context)
